@@ -7,7 +7,7 @@ RecordID = typing.NewType("RecordID", str)
 Metadata: typing.TypeAlias = dict
 
 
-class StorageService(abc.ABC):
+class Storage(abc.ABC):
     @abc.abstractmethod
     def store_video_record(self, video_frames: list[VideoFrame], metadata: Metadata) -> RecordID:
         pass

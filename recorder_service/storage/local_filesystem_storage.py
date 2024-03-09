@@ -4,10 +4,10 @@ from pathlib import Path
 
 import cv2
 
-from recorder_service.core import StorageService, RecordID, VideoFrame, Metadata
+from recorder_service.core import Storage, RecordID, VideoFrame, Metadata
 
 
-class LocalFilesystemStorage(StorageService):
+class LocalFilesystemStorage(Storage):
     def __init__(self, storage_dir: Path):
         if not storage_dir.exists():
             storage_dir.mkdir(parents=True)
