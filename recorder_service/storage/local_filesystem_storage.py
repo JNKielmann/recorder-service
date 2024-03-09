@@ -8,7 +8,15 @@ from recorder_service.core import Storage, RecordID, VideoFrame, Metadata
 
 
 class LocalFilesystemStorage(Storage):
+    """
+    Storage backend that stores video frames and metadata on the local filesystem.
+    For each record, a directory is created with the record ID as the name.
+    The directory contains the video frames as PNG files and the metadata as a JSON file.
+    """
     def __init__(self, storage_dir: Path):
+        """
+        :param storage_dir: Directory to store video frames and metadata
+        """
         if not storage_dir.exists():
             storage_dir.mkdir(parents=True)
         if not storage_dir.is_dir():

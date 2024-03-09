@@ -9,13 +9,13 @@ from recorder_service.config import recorder_service
 app = FastAPI()
 
 
-class VideoCaptureMetadata(BaseModel):
+class VideoCaptureInput(BaseModel):
     customer_id: str
     # trigger_time: datetime
 
 
 @app.post("/trigger-video-capture")
-def trigger_video_capture(metadata: VideoCaptureMetadata):
+def trigger_video_capture(metadata: VideoCaptureInput):
     id = recorder_service.trigger_video_capture({
         **metadata.dict(),
         "trigger_time": datetime.now().isoformat()
