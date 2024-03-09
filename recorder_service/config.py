@@ -5,5 +5,5 @@ from recorder_service.video import LocalVideoSource
 from recorder_service.storage import LocalFilesystemStorage
 
 video_source = LocalVideoSource(Path("data/test_video.mp4"))
-storage_service = LocalFilesystemStorage()
+storage_service = LocalFilesystemStorage(Path("data/storage"))
 recorder_service = RecorderService(3, video_source, storage_service)
