@@ -1,7 +1,9 @@
 import abc
 import typing
 
-VideoFrame: typing.TypeAlias = str
+import cv2.typing
+
+VideoFrame: typing.TypeAlias = cv2.typing.MatLike
 
 
 class VideoSource(abc.ABC):
