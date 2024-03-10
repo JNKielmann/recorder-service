@@ -1,5 +1,5 @@
 from .storage import Storage, Metadata, RecordID
-from .video_source import VideoSource
+from .video_source import VideoSource, VideoFrame
 
 
 class RecorderService:
@@ -28,3 +28,9 @@ class RecorderService:
         """
         video_frames = self.video_source.capture_last_frames(self.num_frames_to_capture)
         return self.storage.store_video_record(video_frames, metadata)
+
+    def list_video_records(self) -> list[tuple[RecordID, Metadata]]:
+        return self.storage.list_video_records()
+
+    def get_video_record(self, record_id: RecordID) -> tuple[list[VideoFrame], Metadata]:
+        return self.storage.get_video_record(record_id)

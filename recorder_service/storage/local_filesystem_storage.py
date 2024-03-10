@@ -13,6 +13,7 @@ class LocalFilesystemStorage(Storage):
     For each record, a directory is created with the record ID as the name.
     The directory contains the video frames as PNG files and the metadata as a JSON file.
     """
+
     def __init__(self, storage_dir: Path):
         """
         :param storage_dir: Directory to store video frames and metadata
@@ -33,3 +34,25 @@ class LocalFilesystemStorage(Storage):
         metadata_file = record_dir / "metadata.json"
         metadata_file.write_text(json.dumps(metadata))
         return record_id
+
+    def list_video_records(self) -> list[tuple[RecordID, Metadata]]:
+        return [
+            (RecordID(d.name), json.load((d / "metadata.json").open()))
+            for d in self.storage_dir.iterdir()
+            if d.is_dir() and (d / "metadata.json").exists()
+        ]
+
+    def get_video_record(self, record_id: RecordID) -> tuple[list[VideoFrame], Metadata]:
+        record_dir = self.storage_dir / record_id
+        if not record_dir.exists():
+            raise Storage.RecordNotFoundError(f"Record {record_id} does not exist")
+        frames = []
+        i = 0
+        while (frame_file := record_dir / f"frame_{i}.png").exists():
+            frame = cv2.imread(str(frame_file))
+            frames.append(frame)
+            i += 1
+        metadata_file = record_dir / "metadata.json"
+        metadata = json.loads(metadata_file.read_text())
+        return frames, metadata
+

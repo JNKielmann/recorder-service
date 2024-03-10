@@ -11,6 +11,7 @@ class Storage(abc.ABC):
     """
     Interface for storing video frames and metadata
     """
+
     @abc.abstractmethod
     def store_video_record(self, video_frames: list[VideoFrame], metadata: Metadata) -> RecordID:
         """
@@ -19,4 +20,15 @@ class Storage(abc.ABC):
         :param metadata: metadata to store
         :return: record ID for later retrieval
         """
+        pass
+
+    @abc.abstractmethod
+    def list_video_records(self) -> list[tuple[RecordID, Metadata]]:
+        pass
+
+    @abc.abstractmethod
+    def get_video_record(self, record_id: RecordID) -> tuple[list[VideoFrame], Metadata]:
+        pass
+
+    class RecordNotFoundError(Exception):
         pass
