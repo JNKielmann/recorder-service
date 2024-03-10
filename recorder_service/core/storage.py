@@ -13,7 +13,9 @@ class Storage(abc.ABC):
     """
 
     @abc.abstractmethod
-    def store_video_record(self, video_frames: list[VideoFrame], metadata: Metadata) -> RecordID:
+    def store_video_record(
+        self, video_frames: list[VideoFrame], metadata: Metadata
+    ) -> RecordID:
         """
         Store provided video frames and metadata and return a unique ID for later retrieval
         :param video_frames: frames to store
@@ -27,7 +29,9 @@ class Storage(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_video_record(self, record_id: RecordID) -> tuple[list[VideoFrame], Metadata]:
+    def get_video_record(
+        self, record_id: RecordID
+    ) -> tuple[list[VideoFrame], Metadata]:
         pass
 
     class RecordNotFoundError(Exception):

@@ -23,10 +23,9 @@ class VideoCaptureInput(BaseModel):
     description="Trigger video capture and store the video frames and metadata",
 )
 def trigger_video_capture(metadata: VideoCaptureInput):
-    id = recorder_service.trigger_video_capture({
-        **metadata.dict(),
-        "trigger_time": datetime.now().isoformat()
-    })
+    id = recorder_service.trigger_video_capture(
+        {**metadata.dict(), "trigger_time": datetime.now().isoformat()}
+    )
     return {
         "id": id,
     }
@@ -65,9 +64,13 @@ def get_video_record_frames(record_id: RecordID):
         frames, _ = recorder_service.get_video_record(record_id)
     except Storage.RecordNotFoundError as e:
         return JSONResponse({"error": str(e)}, status_code=404)
-    return Response(content=zip_video_frames(frames), media_type="application/zip", headers={
-        "Content-Disposition": f"attachment; filename=video_frames_of_{record_id}.zip"
-    })
+    return Response(
+        content=zip_video_frames(frames),
+        media_type="application/zip",
+        headers={
+            "Content-Disposition": f"attachment; filename=video_frames_of_{record_id}.zip"
+        },
+    )
 
 
 def zip_video_frames(frames: list[VideoFrame]) -> bytes:
@@ -81,4 +84,4 @@ def zip_video_frames(frames: list[VideoFrame]) -> bytes:
 
 @app.get("/", include_in_schema=False)
 async def docs_redirect():
-    return RedirectResponse(url='/docs')
+    return RedirectResponse(url="/docs")

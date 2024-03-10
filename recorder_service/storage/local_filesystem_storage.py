@@ -24,7 +24,9 @@ class LocalFilesystemStorage(Storage):
             raise ValueError(f"{storage_dir} is not a directory")
         self.storage_dir = storage_dir
 
-    def store_video_record(self, video_frames: list[VideoFrame], metadata: Metadata) -> RecordID:
+    def store_video_record(
+        self, video_frames: list[VideoFrame], metadata: Metadata
+    ) -> RecordID:
         record_id = RecordID(str(uuid.uuid4()))
         record_dir = self.storage_dir / record_id
         record_dir.mkdir()
@@ -42,7 +44,9 @@ class LocalFilesystemStorage(Storage):
             if d.is_dir() and (d / "metadata.json").exists()
         ]
 
-    def get_video_record(self, record_id: RecordID) -> tuple[list[VideoFrame], Metadata]:
+    def get_video_record(
+        self, record_id: RecordID
+    ) -> tuple[list[VideoFrame], Metadata]:
         record_dir = self.storage_dir / record_id
         if not record_dir.exists():
             raise Storage.RecordNotFoundError(f"Record {record_id} does not exist")
@@ -55,4 +59,3 @@ class LocalFilesystemStorage(Storage):
         metadata_file = record_dir / "metadata.json"
         metadata = json.loads(metadata_file.read_text())
         return frames, metadata
-

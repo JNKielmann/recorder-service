@@ -10,6 +10,7 @@ class VideoSource(abc.ABC):
     """
     Interface for video source that allows capturing frames
     """
+
     @abc.abstractmethod
     def capture_last_frames(self, num_frames: int) -> list[VideoFrame]:
         """

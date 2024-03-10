@@ -10,6 +10,7 @@ class LocalVideoSource(VideoSource):
     Video source that captures frames from a local video file.
     The frames are always captured from the beginning of the video.
     """
+
     def __init__(self, video_file_path: Path):
         if not video_file_path.exists():
             raise ValueError(f"{video_file_path} does not exist")

@@ -51,9 +51,12 @@ def get_video_record_frames(client, record_id) -> list[cv2.typing.MatLike]:
 
 
 def trigger_video_capture(client) -> str:
-    response = client.post("/trigger-video-capture", json={
-        "customer_id": "test-customer",
-    })
+    response = client.post(
+        "/trigger-video-capture",
+        json={
+            "customer_id": "test-customer",
+        },
+    )
     assert response.status_code == 200
     body = response.json()
     assert "id" in body

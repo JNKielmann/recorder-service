@@ -31,15 +31,12 @@ def test_store_video_record(tmp_path):
     storage_service = LocalFilesystemStorage(tmp_path)
     empty_image = np.zeros((720, 1280, 3), np.uint8)
     metadata = {"test": "value"}
-    record_id = storage_service.store_video_record(
-        [empty_image, empty_image],
-        metadata
-    )
+    record_id = storage_service.store_video_record([empty_image, empty_image], metadata)
     record_dir = tmp_path / record_id
     assert record_dir.exists()
     assert (record_dir / "frame_0.png").exists()
     assert (record_dir / "frame_1.png").exists()
-    metadata_file = (record_dir / "metadata.json")
+    metadata_file = record_dir / "metadata.json"
     assert metadata_file.exists()
     read_metadata = json.load(metadata_file.open())
     assert read_metadata == metadata

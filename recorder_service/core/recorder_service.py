@@ -6,11 +6,14 @@ class RecorderService:
     """
     Core service for capturing video frames and storing them
     """
+
     storage: Storage
     num_frames_to_capture: int
     video_source: VideoSource
 
-    def __init__(self, num_frames_to_capture: int, video_source: VideoSource, storage: Storage):
+    def __init__(
+        self, num_frames_to_capture: int, video_source: VideoSource, storage: Storage
+    ):
         """
         :param num_frames_to_capture: Number of frames to capture on each trigger
         :param video_source: Source of video frames
@@ -32,5 +35,7 @@ class RecorderService:
     def list_video_records(self) -> list[tuple[RecordID, Metadata]]:
         return self.storage.list_video_records()
 
-    def get_video_record(self, record_id: RecordID) -> tuple[list[VideoFrame], Metadata]:
+    def get_video_record(
+        self, record_id: RecordID
+    ) -> tuple[list[VideoFrame], Metadata]:
         return self.storage.get_video_record(record_id)
