@@ -1,2 +1,6 @@
-.idea
 data/storage
+tests/test-data/e2e-storage
+
+.idea
+__pycache__
+.DS_Store
