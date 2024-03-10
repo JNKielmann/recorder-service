@@ -14,7 +14,7 @@ storage_dir = this_dir / "test-data/e2e-storage"
 os.environ["STORAGE_DIR"] = str(storage_dir)
 os.environ["NUM_FRAMES_TO_CAPTURE"] = "2"
 
-from recorder_service.api import app
+from recorder_service.api import app  # noqa: E402
 
 
 def test_trigger_video_capture_and_request_result():
