@@ -26,12 +26,18 @@ class Storage(abc.ABC):
 
     @abc.abstractmethod
     def list_video_records(self) -> list[tuple[RecordID, Metadata]]:
+        """
+        List all stored video records with their metadata
+        """
         pass
 
     @abc.abstractmethod
     def get_video_record(
         self, record_id: RecordID
     ) -> tuple[list[VideoFrame], Metadata]:
+        """
+        Retrieve stored video frames and metadata for a given record ID
+        """
         pass
 
     class RecordNotFoundError(Exception):

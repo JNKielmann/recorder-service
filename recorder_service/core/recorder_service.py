@@ -33,9 +33,17 @@ class RecorderService:
         return self.storage.store_video_record(video_frames, metadata)
 
     def list_video_records(self) -> list[tuple[RecordID, Metadata]]:
+        """
+        List all stored video records with their metadata
+        :return: List of video records
+        """
         return self.storage.list_video_records()
 
     def get_video_record(
         self, record_id: RecordID
     ) -> tuple[list[VideoFrame], Metadata]:
+        """
+        Retrieve stored video frames and metadata for a given record ID
+        :return: Video frames and metadata
+        """
         return self.storage.get_video_record(record_id)
